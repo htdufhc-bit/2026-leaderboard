@@ -31,9 +31,9 @@ public class LeaderboardService {
         List<RankInterface> rankInterfaces;
 
         if (!gameType.isLowBetter()) {
-            rankInterfaces = scoreRepository.findTop5WithRankByHighScore(gameType.getGameName());
+            rankInterfaces = scoreRepository.findTop5WithRankByHighScore(gameType.name());
         } else {
-            rankInterfaces = scoreRepository.findTop5WithRankByLowScore(gameType.getGameName());
+            rankInterfaces = scoreRepository.findTop5WithRankByLowScore(gameType.name());
         }
 
         List<GameRankingResponse.Ranking> rankings = rankInterfaces.stream()
@@ -68,11 +68,11 @@ public class LeaderboardService {
 
     private void addRankingPointsForGame(Map<String, Integer> scoreMap, GameType gameType) {
         if (!gameType.isLowBetter()) {
-            scoreRepository.findTop5WithRankByHighScore(gameType.getGameName()).forEach(
+            scoreRepository.findTop5WithRankByHighScore(gameType.name()).forEach(
                     p -> scoreMap.merge(p.getUserId(), RankingPoint.getPointsByRank(p.getRank()), Integer::sum)
             );
         } else {
-            scoreRepository.findTop5WithRankByLowScore(gameType.getGameName()).forEach(
+            scoreRepository.findTop5WithRankByLowScore(gameType.name()).forEach(
                     p -> scoreMap.merge(p.getUserId(), RankingPoint.getPointsByRank(p.getRank()), Integer::sum)
             );
         }
