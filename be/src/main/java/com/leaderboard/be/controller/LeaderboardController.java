@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LeaderboardController {
 
-    private LeaderboardService leaderboardService;
+    private final LeaderboardService leaderboardService;
 
     @GetMapping("/{gameName}")
     public GameRankingResponse getSingleGameRankings(@PathVariable String gameName) {
